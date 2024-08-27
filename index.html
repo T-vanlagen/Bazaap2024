@@ -9,15 +9,42 @@
       body {
         font-family: Arial, sans-serif;
         text-align: center;
-        margin-top: 50px;
       }
       #qrcode {
         margin: 20px auto;
+        width: 350px;
+        height: 350px;
+        position: relative;
+      }
+      #qrcode img {
+        width: 100%;
+        height: 100%;
       }
       .container {
         display: flex;
+        width: 4in;
+        height: 6in;
         flex-direction: column;
         align-items: center;
+      }
+      #printableArea {
+        width: 4in;
+        height: 6in;
+      }
+      @media print {
+        /* body * {
+          visibility: hidden;
+        } */
+        #printableArea * {
+          visibility: visible;
+        }
+        #printableArea {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+        }
       }
     </style>
   </head>
@@ -27,8 +54,7 @@
       <div class="container">
         <div id="qrcode"></div>
         <p id="buyer"></p>
-        <p id="firstName"></p>
-        <p id="lastName"></p>
+        <p id="fullName"></p>
       </div>
     </div>
 
@@ -44,13 +70,10 @@
 
       function displayValues() {
         const { buyer, firstName, lastName } = getQueryParams();
-        document.getElementById("buyer").textContent = `Buyer#: ${buyer}`;
+        document.getElementById("buyer").textContent = `Buyer #: ${buyer}`;
         document.getElementById(
-          "firstName"
-        ).textContent = `First Name: ${firstName}`;
-        document.getElementById(
-          "lastName"
-        ).textContent = `Last Name: ${lastName}`;
+          "fullName"
+        ).textContent = `Name: ${firstName} ${lastName}`; // Display the full name
 
         const qrCodeText = `${buyer}`;
         new QRCode(document.getElementById("qrcode"), qrCodeText);
