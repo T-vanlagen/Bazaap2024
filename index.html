@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Display</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      #qrcode {
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>QR Code Display</h1>
+    <div id="qrcode"></div>
+    <p id="buyer"></p>
+    <p id="firstName"></p>
+    <p id="lastName"></p>
+
+    <script>
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          buyer: params.get("buyer"),
+          firstName: params.get("firstName"),
+          lastName: params.get("lastName"),
+        };
+      }
+
+      function displayValues() {
+        const { buyer, firstName, lastName } = getQueryParams();
+        document.getElementById("buyer").textContent = `Buyer#: ${buyer}`;
+        document.getElementById(
+          "firstName"
+        ).textContent = `First Name: ${firstName}`;
+        document.getElementById(
+          "lastName"
+        ).textContent = `Last Name: ${lastName}`;
+
+        const qrCodeText = `Buyer#: ${buyer}, First Name: ${firstName}, Last Name: ${lastName}`;
+        new QRCode(document.getElementById("qrcode"), qrCodeText);
+      }
+
+      displayValues();
+    </script>
+  </body>
+</html>
