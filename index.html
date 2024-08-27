@@ -19,9 +19,14 @@
       .textInfo {
         margin: 20px auto;
         height: 1.25in;
+        align-content: center;
       }
       .textLabel {
         font-weight: bold;
+        font-size: x-small;
+      }
+      .textContent {
+        font-size: x-small;
       }
       #qrcode {
         margin: 20px auto;
@@ -52,6 +57,7 @@
         @page {
           size: 2.25in 1.25in; /* Specify the sheet size */
           margin: 0; /* Remove default margins */
+          scale: 80%; /* Scale down the content to fit the page */
         }
         #printableArea * {
           visibility: visible;
@@ -74,11 +80,11 @@
         <div class="textInfo">
           <div class="textDiv">
             <label class="textLabel" for="buyer">Buyer #:</label>
-            <p id="buyer"></p>
+            <div class="textContent" id="buyer"></div>
           </div>
           <div class="textDiv">
             <label class="textLabel" for="fullName">Name:</label>
-            <p id="fullName"></p>
+            <div class="textContent" id="fullName"></div>
           </div>
         </div>
       </div>
@@ -101,6 +107,12 @@
           "fullName"
         ).textContent = `${firstName} ${lastName}`; // Display the full name
 
+        if (document.getElementById("buyer").textContent === "null") {
+          document.getElementById("buyer").textContent = "12";
+        }
+        if (document.getElementById("fullName").textContent === "null null") {
+          document.getElementById("fullName").textContent = "Trevor Van Lagen";
+        }
         const qrCodeText = `${buyer}`;
         new QRCode(document.getElementById("qrcode"), qrCodeText);
       }
