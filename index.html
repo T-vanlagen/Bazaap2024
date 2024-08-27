@@ -52,7 +52,7 @@
           "lastName"
         ).textContent = `Last Name: ${lastName}`;
 
-        const qrCodeText = `Buyer#: ${buyer}, First Name: ${firstName}, Last Name: ${lastName}`;
+        const qrCodeText = `${buyer}`;
         new QRCode(document.getElementById("qrcode"), qrCodeText);
       }
 
