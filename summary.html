@@ -565,86 +565,86 @@
           // Render the payments table
           const paymentsDiv = document.getElementById("payments");
 
-          if (paymentData && paymentData.length > 0) {
-            const table = document.createElement("table");
-            table.style.width = "100%"; // Set table width to 100%
-            const thead = document.createElement("thead");
-            const tbody = document.createElement("tbody");
+          // if (paymentData && paymentData.length > 0) {
+          const table = document.createElement("table");
+          table.style.width = "100%"; // Set table width to 100%
+          const thead = document.createElement("thead");
+          const tbody = document.createElement("tbody");
 
-            // Create table headers
-            const headers = ["Type", "Amount"];
-            const headerRow = document.createElement("tr");
+          // Create table headers
+          const headers = ["Type", "Amount"];
+          const headerRow = document.createElement("tr");
+          headers.forEach((header) => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            th.style.width = `${100 / headers.length}%`; // Set equal width for each column
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+
+          // Create table rows
+          const currencyFormatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          });
+
+          let totalPaymentAmount = 0;
+          paymentData.forEach((row) => {
+            const tr = document.createElement("tr");
             headers.forEach((header) => {
-              const th = document.createElement("th");
-              th.textContent = header;
-              th.style.width = `${100 / headers.length}%`; // Set equal width for each column
-              headerRow.appendChild(th);
+              const td = document.createElement("td");
+              if (header === "Type") {
+                td.textContent =
+                  paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
+              } else if (header === "Amount") {
+                td.textContent = currencyFormatter.format(row["Amount"]);
+                totalPaymentAmount += parseFloat(row["Amount"]);
+              }
+              tr.appendChild(td);
             });
-            thead.appendChild(headerRow);
+            tbody.appendChild(tr);
+          });
 
-            // Create table rows
-            const currencyFormatter = new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            });
+          // Add total row
+          const totalRow = document.createElement("tr");
+          const totalTypeCell = document.createElement("td");
+          totalTypeCell.textContent = "Total";
+          totalTypeCell.style.borderTop = "2px solid black"; // Add top border to the total type cell
+          totalTypeCell.style.fontWeight = "bold"; // Bold the total type cell
+          const totalAmountCell = document.createElement("td");
+          totalAmountCell.textContent =
+            currencyFormatter.format(totalPaymentAmount); // Format total payment amount
+          totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
+          totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
+          totalRow.appendChild(totalTypeCell);
+          totalRow.appendChild(totalAmountCell);
+          tbody.appendChild(totalRow);
 
-            let totalPaymentAmount = 0;
-            paymentData.forEach((row) => {
-              const tr = document.createElement("tr");
-              headers.forEach((header) => {
-                const td = document.createElement("td");
-                if (header === "Type") {
-                  td.textContent =
-                    paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
-                } else if (header === "Amount") {
-                  td.textContent = currencyFormatter.format(row["Amount"]);
-                  totalPaymentAmount += parseFloat(row["Amount"]);
-                }
-                tr.appendChild(td);
-              });
-              tbody.appendChild(tr);
-            });
+          // Calculate remaining balance
+          const remainingBalance =
+            totalAuctionAmount + totalTransactionAmount - totalPaymentAmount;
 
-            // Add total row
-            const totalRow = document.createElement("tr");
-            const totalTypeCell = document.createElement("td");
-            totalTypeCell.textContent = "Total";
-            totalTypeCell.style.borderTop = "2px solid black"; // Add top border to the total type cell
-            totalTypeCell.style.fontWeight = "bold"; // Bold the total type cell
-            const totalAmountCell = document.createElement("td");
-            totalAmountCell.textContent =
-              currencyFormatter.format(totalPaymentAmount); // Format total payment amount
-            totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
-            totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
-            totalRow.appendChild(totalTypeCell);
-            totalRow.appendChild(totalAmountCell);
-            tbody.appendChild(totalRow);
+          // Add remaining balance row
+          const remainingBalanceRow = document.createElement("tr");
+          const remainingBalanceTypeCell = document.createElement("td");
+          remainingBalanceTypeCell.textContent = "**Remaining Balance";
+          remainingBalanceTypeCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance type cell
+          remainingBalanceTypeCell.style.fontWeight = "bold"; // Bold the remaining balance type cell
+          const remainingBalanceAmountCell = document.createElement("td");
+          remainingBalanceAmountCell.textContent =
+            currencyFormatter.format(remainingBalance); // Format remaining balance amount
+          remainingBalanceAmountCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance amount cell
+          remainingBalanceAmountCell.style.fontWeight = "bold"; // Bold the remaining balance amount cell
+          remainingBalanceRow.appendChild(remainingBalanceTypeCell);
+          remainingBalanceRow.appendChild(remainingBalanceAmountCell);
+          tbody.appendChild(remainingBalanceRow);
 
-            // Calculate remaining balance
-            const remainingBalance =
-              totalAuctionAmount + totalTransactionAmount - totalPaymentAmount;
-
-            // Add remaining balance row
-            const remainingBalanceRow = document.createElement("tr");
-            const remainingBalanceTypeCell = document.createElement("td");
-            remainingBalanceTypeCell.textContent = "**Remaining Balance";
-            remainingBalanceTypeCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance type cell
-            remainingBalanceTypeCell.style.fontWeight = "bold"; // Bold the remaining balance type cell
-            const remainingBalanceAmountCell = document.createElement("td");
-            remainingBalanceAmountCell.textContent =
-              currencyFormatter.format(remainingBalance); // Format remaining balance amount
-            remainingBalanceAmountCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance amount cell
-            remainingBalanceAmountCell.style.fontWeight = "bold"; // Bold the remaining balance amount cell
-            remainingBalanceRow.appendChild(remainingBalanceTypeCell);
-            remainingBalanceRow.appendChild(remainingBalanceAmountCell);
-            tbody.appendChild(remainingBalanceRow);
-
-            table.appendChild(thead);
-            table.appendChild(tbody);
-            paymentsDiv.appendChild(table);
-          } else {
-            paymentsDiv.textContent = "No payments found.";
-          }
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          paymentsDiv.appendChild(table);
+          // } else {
+          //   paymentsDiv.textContent = "No payments found.";
+          // }
         } catch (error) {
           console.error("Error fetching payment data:", error);
         }
