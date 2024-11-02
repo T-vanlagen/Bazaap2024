@@ -81,14 +81,10 @@
         class="title-block"
         style="text-align: left; font-size: 1.5em; padding: 10px"
       >
-        <div
-          style="text-align: right; font-style: italic; font-size: small"
-          id="currentDateTime"
-        ></div>
         <div style="text-align: center; font-weight: bold">
           Bazaar Receipt 2024
         </div>
-        <div style="text-align: center; font-size: smaller">
+        <div style="text-align: center; font-size: smaller; padding-top: 10px">
           <span id="firstName"></span> <span id="lastName"></span>
         </div>
       </div>
@@ -103,15 +99,17 @@
           <div class="lineHeader">Payments</div>
         </div>
       </div>
-      <p style="font-style: italic">
+      <div style="font-style: italic; font-size: small">
         *Taxable Amount: The difference between the Sale Price and the Value,
         only if the Sale Price is 120% or more of the Value.<br />
         **Remaining Balance: If this number is in the negatives, the amount
-        amount overpaid is fully taxable.
-      </p>
-      <div style="font-style: italic; font-size: small">
+        amount overpaid is fully taxable.<br />
         This is not an official tax reciept
       </div>
+      <div
+        style="text-align: right; font-style: italic; font-size: small"
+        id="currentDateTime"
+      ></div>
       <div class="print-button">
         <button onclick="window.print()">Print Me</button>
       </div>
@@ -290,7 +288,7 @@
             const tbody = document.createElement("tbody");
 
             // Create table headers
-            const headers = ["Item", "Value", "Amount", "*Taxable Amount"];
+            const headers = ["Item", "Value", "Amount", "Taxable Amount*"];
             const headerRow = document.createElement("tr");
             headers.forEach((header) => {
               const th = document.createElement("th");
@@ -319,7 +317,7 @@
                 } else if (header === "Amount") {
                   td.textContent = currencyFormatter.format(row["SalePrice"]);
                   totalAuctionAmountLocal += parseFloat(row["SalePrice"]);
-                } else if (header === "*Taxable Amount") {
+                } else if (header === "Taxable Amount*") {
                   const taxableAmount = row["SalePrice"] - row["Value"];
                   if (row["SalePrice"] >= 1.2 * row["Value"]) {
                     td.textContent = currencyFormatter.format(taxableAmount);
@@ -437,7 +435,7 @@
             const tbody = document.createElement("tbody");
 
             // Create table headers
-            const headers = ["Room", "Amount", "*Taxable Amount"];
+            const headers = ["Room", "Amount", "Taxable Amount*"];
             const headerRow = document.createElement("tr");
             headers.forEach((header) => {
               const th = document.createElement("th");
@@ -461,7 +459,7 @@
                   totalTransactionAmountLocal += parseFloat(row["SalePrice"]);
                 } else if (header === "Room") {
                   td.textContent = row["RoomName"];
-                } else if (header === "*Taxable Amount") {
+                } else if (header === "Taxable Amount*") {
                   if (row["RoomName"] === "Lunch") {
                     td.textContent = currencyFormatter.format(row["SalePrice"]);
                   } else {
