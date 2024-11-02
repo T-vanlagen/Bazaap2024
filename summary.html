@@ -313,30 +313,40 @@
 
           let totalAuctionAmountLocal = 0;
           let totalTaxableAmount = 0;
-          auctionItemData.forEach((row) => {
-            const tr = document.createElement("tr");
-            headers.forEach((header) => {
-              const td = document.createElement("td");
-              if (header === "Item") {
-                td.textContent = row["Description"];
-              } else if (header === "Value") {
-                td.textContent = currencyFormatter.format(row["Value"]);
-              } else if (header === "Amount") {
-                td.textContent = currencyFormatter.format(row["SalePrice"]);
-                totalAuctionAmountLocal += parseFloat(row["SalePrice"]);
-              } else if (header === "Taxable Amount*") {
-                const taxableAmount = row["SalePrice"] - row["Value"];
-                if (row["SalePrice"] >= 1.2 * row["Value"]) {
-                  td.textContent = currencyFormatter.format(taxableAmount);
-                  totalTaxableAmount += taxableAmount;
-                } else {
-                  td.textContent = "";
+
+          if (auctionItemData.length > 0) {
+            auctionItemData.forEach((row) => {
+              const tr = document.createElement("tr");
+              headers.forEach((header) => {
+                const td = document.createElement("td");
+                if (header === "Item") {
+                  td.textContent = row["Description"];
+                } else if (header === "Value") {
+                  td.textContent = currencyFormatter.format(row["Value"]);
+                } else if (header === "Amount") {
+                  td.textContent = currencyFormatter.format(row["SalePrice"]);
+                  totalAuctionAmountLocal += parseFloat(row["SalePrice"]);
+                } else if (header === "Taxable Amount*") {
+                  const taxableAmount = row["SalePrice"] - row["Value"];
+                  if (row["SalePrice"] >= 1.2 * row["Value"]) {
+                    td.textContent = currencyFormatter.format(taxableAmount);
+                    totalTaxableAmount += taxableAmount;
+                  } else {
+                    td.textContent = "";
+                  }
                 }
-              }
-              tr.appendChild(td);
+                tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
             });
+          } else {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.textContent = "No auction items.";
+            td.colSpan = headers.length;
+            tr.appendChild(td);
             tbody.appendChild(tr);
-          });
+          }
 
           // Update totalAuctionAmount
           totalAuctionAmount = totalAuctionAmountLocal;
@@ -462,26 +472,35 @@
             currency: "USD",
           });
 
-          aggregatedData.forEach((row) => {
-            const tr = document.createElement("tr");
-            headers.forEach((header) => {
-              const td = document.createElement("td");
-              if (header === "Amount") {
-                td.textContent = currencyFormatter.format(row["SalePrice"]);
-                totalTransactionAmountLocal += parseFloat(row["SalePrice"]);
-              } else if (header === "Room") {
-                td.textContent = row["RoomName"];
-              } else if (header === "Taxable Amount*") {
-                if (row["RoomName"] === "Lunch") {
+          if (aggregatedData.length > 0) {
+            aggregatedData.forEach((row) => {
+              const tr = document.createElement("tr");
+              headers.forEach((header) => {
+                const td = document.createElement("td");
+                if (header === "Amount") {
                   td.textContent = currencyFormatter.format(row["SalePrice"]);
-                } else {
-                  td.textContent = "";
+                  totalTransactionAmountLocal += parseFloat(row["SalePrice"]);
+                } else if (header === "Room") {
+                  td.textContent = row["RoomName"];
+                } else if (header === "Taxable Amount*") {
+                  if (row["RoomName"] === "Lunch") {
+                    td.textContent = currencyFormatter.format(row["SalePrice"]);
+                  } else {
+                    td.textContent = "";
+                  }
                 }
-              }
-              tr.appendChild(td);
+                tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
             });
+          } else {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.textContent = "No transactions.";
+            td.colSpan = headers.length;
+            tr.appendChild(td);
             tbody.appendChild(tr);
-          });
+          }
 
           // Update totalTransactionAmount
           totalTransactionAmount = totalTransactionAmountLocal;
@@ -608,7 +627,7 @@
           } else {
             const tr = document.createElement("tr");
             const td = document.createElement("td");
-            td.textContent = "No payments found.";
+            td.textContent = "No payments.";
             td.colSpan = headers.length;
             tr.appendChild(td);
             tbody.appendChild(tr);
