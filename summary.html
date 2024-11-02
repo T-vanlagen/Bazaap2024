@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{urlParams.get("FirstName")}} {{urlParams.get("LastName")}}</title>
+    <title></title>
     <link
       rel="icon"
       href="https://t-vanlagen.github.io/Bazaap2024/favicon.ico"
@@ -124,6 +124,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
+        document.title = `${firstName} ${lastName}`;
         let firstName = "";
         let lastName = "";
         let buyerId = "";
