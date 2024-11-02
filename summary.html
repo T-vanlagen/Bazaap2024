@@ -207,6 +207,7 @@
             }
           );
           roomData = await response.json();
+          console.log("roomData", roomData);
         } catch (error) {
           console.error("Error fetching room data:", error);
         }
@@ -243,6 +244,7 @@
           paymentTypeData.forEach((type) => {
             paymentTypeMap[type["Row ID"]] = type.Name;
           });
+          console.log("paymentTypeData", paymentTypeData);
         } catch (error) {
           console.error("Error fetching room data:", error);
         }
@@ -274,6 +276,7 @@
             }
           );
           const auctionItemData = await response.json();
+          console.log("auctionItemData", auctionItemData);
           // Render the auction items table
           const auctionItemsDiv = document.getElementById("auctionItems");
 
@@ -392,6 +395,7 @@
             }
           );
           const transactionData = await response.json();
+          console.log("transactionData", transactionData);
 
           // Create a mapping of RoomId to Name
           const roomMap = {};
@@ -544,6 +548,7 @@
             }
           );
           const paymentData = await paymentResponse.json();
+          console.log("paymentData", paymentData);
 
           // Render the payments table
           const paymentsDiv = document.getElementById("payments");
