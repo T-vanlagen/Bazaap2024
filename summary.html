@@ -133,6 +133,14 @@
         buyerId = urlParams.get("BuyerId");
         firstName = urlParams.get("FirstName");
         lastName = urlParams.get("LastName");
+        console.log(
+          "buyerId",
+          buyerId,
+          "firstName",
+          firstName,
+          "lastName",
+          lastName
+        );
         document.getElementById("firstName").textContent =
           urlParams.get("FirstName"); //await `${firstName}`;
         document.getElementById("lastName").textContent =
