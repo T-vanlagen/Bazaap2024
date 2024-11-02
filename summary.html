@@ -418,7 +418,12 @@
 
           // Convert the aggregated data back to an array
           const aggregatedData = Object.values(transactionRoomData);
-          console.log("aggregatedData", aggregatedData);
+          // Sort the aggregatedData by RoomName
+          aggregatedData.sort((a, b) => {
+            if (a.RoomName < b.RoomName) return -1;
+            if (a.RoomName > b.RoomName) return 1;
+            return 0;
+          });
 
           // Calculate the total SalePrice
           const totalSalePrice = aggregatedData.reduce(
