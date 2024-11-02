@@ -91,7 +91,20 @@
         class="title-block"
         style="text-align: left; font-size: 1.5em; padding: 10px"
       >
-        <div style="text-align: center; font-weight: bold">
+        <div
+          style="
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <img
+            src="https://t-vanlagen.github.io/Bazaap2024/favicon.ico"
+            alt="Favicon"
+            style="width: 24px; height: 24px; margin-right: 10px"
+          />
           Bazaar Receipt 2024
         </div>
         <div style="text-align: center; font-size: smaller; padding-top: 10px">
@@ -655,7 +668,7 @@
           // Add remaining balance row
           const remainingBalanceRow = document.createElement("tr");
           const remainingBalanceTypeCell = document.createElement("td");
-          remainingBalanceTypeCell.textContent = "**Remaining Balance";
+          remainingBalanceTypeCell.textContent = "Remaining Balance**";
           remainingBalanceTypeCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance type cell
           remainingBalanceTypeCell.style.fontWeight = "bold"; // Bold the remaining balance type cell
           const remainingBalanceAmountCell = document.createElement("td");
