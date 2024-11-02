@@ -124,6 +124,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
         document.title = `${firstName} ${lastName}`;
         let firstName = "";
         let lastName = "";
@@ -134,7 +135,6 @@
         let totalAuctionAmount = 0;
         let totalTransactionAmount = 0;
         let totalTransactionAmountLocal = 0;
-        const urlParams = new URLSearchParams(window.location.search);
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
