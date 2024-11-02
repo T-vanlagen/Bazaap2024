@@ -139,16 +139,11 @@
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
         buyerId = urlParams.get("BuyerId");
+        console.log("buyerId", buyerId);
         firstName = urlParams.get("FirstName");
+        console.log("firstName", firstName);
         lastName = urlParams.get("LastName");
-        console.log(
-          "buyerId",
-          buyerId,
-          "firstName",
-          firstName,
-          "lastName",
-          lastName
-        );
+        console.log("lastName", lastName);
         document.getElementById("firstName").textContent =
           urlParams.get("FirstName"); //await `${firstName}`;
         document.getElementById("lastName").textContent =
