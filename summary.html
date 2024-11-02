@@ -589,21 +589,30 @@
           });
 
           let totalPaymentAmount = 0;
-          paymentData.forEach((row) => {
-            const tr = document.createElement("tr");
-            headers.forEach((header) => {
-              const td = document.createElement("td");
-              if (header === "Type") {
-                td.textContent =
-                  paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
-              } else if (header === "Amount") {
-                td.textContent = currencyFormatter.format(row["Amount"]);
-                totalPaymentAmount += parseFloat(row["Amount"]);
-              }
-              tr.appendChild(td);
+          if (paymentData.length > 0) {
+            paymentData.forEach((row) => {
+              const tr = document.createElement("tr");
+              headers.forEach((header) => {
+                const td = document.createElement("td");
+                if (header === "Type") {
+                  td.textContent =
+                    paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
+                } else if (header === "Amount") {
+                  td.textContent = currencyFormatter.format(row["Amount"]);
+                  totalPaymentAmount += parseFloat(row["Amount"]);
+                }
+                tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
             });
+          } else {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.textContent = "No payments found.";
+            td.colSpan = headers.length;
+            tr.appendChild(td);
             tbody.appendChild(tr);
-          });
+          }
 
           // Add total row
           const totalRow = document.createElement("tr");
