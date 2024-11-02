@@ -85,8 +85,10 @@
           style="text-align: right; font-style: italic; font-size: small"
           id="currentDateTime"
         ></div>
-        <div style="text-align: center">Bazaar Receipt 2024</div>
-        <div style="text-align: center">
+        <div style="text-align: center; font-weight: bold">
+          Bazaar Receipt 2024
+        </div>
+        <div style="text-align: center; font-size: smaller">
           <span id="firstName"></span> <span id="lastName"></span>
         </div>
       </div>
@@ -103,12 +105,13 @@
       </div>
       <p style="font-style: italic">
         *Taxable Amount: The difference between the Sale Price and the Value,
-        only if the Sale Price is 120% or more of the Value.
-      </p>
-      <p style="font-style: italic">
+        only if the Sale Price is 120% or more of the Value.<br />
         **Remaining Balance: If this number is in the negatives, the amount
         amount overpaid is fully taxable.
       </p>
+      <div style="font-style: italic; font-size: small">
+        This is not an official tax reciept
+      </div>
       <div class="print-button">
         <button onclick="window.print()">Print Me</button>
       </div>
