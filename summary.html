@@ -127,6 +127,14 @@
 
       // Add current date and time to the page
       document.addEventListener("DOMContentLoaded", function () {
+        console.log(
+          "buyerId",
+          buyerId,
+          "firstName",
+          firstName,
+          "lastName",
+          lastName
+        );
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
