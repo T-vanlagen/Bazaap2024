@@ -288,90 +288,90 @@
           // Render the auction items table
           const auctionItemsDiv = document.getElementById("auctionItems");
 
-          if (auctionItemData && auctionItemData.length > 0) {
-            const table = document.createElement("table");
-            table.style.width = "100%"; // Set table width to 100%
-            const thead = document.createElement("thead");
-            const tbody = document.createElement("tbody");
+          // if (auctionItemData && auctionItemData.length > 0) {
+          const table = document.createElement("table");
+          table.style.width = "100%"; // Set table width to 100%
+          const thead = document.createElement("thead");
+          const tbody = document.createElement("tbody");
 
-            // Create table headers
-            const headers = ["Item", "Value", "Amount", "Taxable Amount*"];
-            const headerRow = document.createElement("tr");
+          // Create table headers
+          const headers = ["Item", "Value", "Amount", "Taxable Amount*"];
+          const headerRow = document.createElement("tr");
+          headers.forEach((header) => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            th.style.width = `${100 / headers.length}%`; // Set equal width for each column
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+
+          // Create table rows
+          const currencyFormatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          });
+
+          let totalAuctionAmountLocal = 0;
+          let totalTaxableAmount = 0;
+          auctionItemData.forEach((row) => {
+            const tr = document.createElement("tr");
             headers.forEach((header) => {
-              const th = document.createElement("th");
-              th.textContent = header;
-              th.style.width = `${100 / headers.length}%`; // Set equal width for each column
-              headerRow.appendChild(th);
-            });
-            thead.appendChild(headerRow);
-
-            // Create table rows
-            const currencyFormatter = new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            });
-
-            let totalAuctionAmountLocal = 0;
-            let totalTaxableAmount = 0;
-            auctionItemData.forEach((row) => {
-              const tr = document.createElement("tr");
-              headers.forEach((header) => {
-                const td = document.createElement("td");
-                if (header === "Item") {
-                  td.textContent = row["Description"];
-                } else if (header === "Value") {
-                  td.textContent = currencyFormatter.format(row["Value"]);
-                } else if (header === "Amount") {
-                  td.textContent = currencyFormatter.format(row["SalePrice"]);
-                  totalAuctionAmountLocal += parseFloat(row["SalePrice"]);
-                } else if (header === "Taxable Amount*") {
-                  const taxableAmount = row["SalePrice"] - row["Value"];
-                  if (row["SalePrice"] >= 1.2 * row["Value"]) {
-                    td.textContent = currencyFormatter.format(taxableAmount);
-                    totalTaxableAmount += taxableAmount;
-                  } else {
-                    td.textContent = "";
-                  }
+              const td = document.createElement("td");
+              if (header === "Item") {
+                td.textContent = row["Description"];
+              } else if (header === "Value") {
+                td.textContent = currencyFormatter.format(row["Value"]);
+              } else if (header === "Amount") {
+                td.textContent = currencyFormatter.format(row["SalePrice"]);
+                totalAuctionAmountLocal += parseFloat(row["SalePrice"]);
+              } else if (header === "Taxable Amount*") {
+                const taxableAmount = row["SalePrice"] - row["Value"];
+                if (row["SalePrice"] >= 1.2 * row["Value"]) {
+                  td.textContent = currencyFormatter.format(taxableAmount);
+                  totalTaxableAmount += taxableAmount;
+                } else {
+                  td.textContent = "";
                 }
-                tr.appendChild(td);
-              });
-              tbody.appendChild(tr);
+              }
+              tr.appendChild(td);
             });
+            tbody.appendChild(tr);
+          });
 
-            // Update totalAuctionAmount
-            totalAuctionAmount = totalAuctionAmountLocal;
+          // Update totalAuctionAmount
+          totalAuctionAmount = totalAuctionAmountLocal;
 
-            // Add total row
-            const totalRow = document.createElement("tr");
-            const totalItemCell = document.createElement("td");
-            totalItemCell.textContent = "Total";
-            totalItemCell.style.borderTop = "2px solid black"; // Add top border to the total item cell
-            totalItemCell.style.fontWeight = "bold"; // Bold the total item cell
-            const totalValueCell = document.createElement("td");
-            totalValueCell.textContent = ""; // Empty cell for Value column
-            totalValueCell.style.borderTop = "2px solid black"; // Add top border to the total value cell
-            const totalAmountCell = document.createElement("td");
-            totalAmountCell.textContent =
-              currencyFormatter.format(totalAuctionAmount); // Format total sale price
-            totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
-            totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
-            const totalTaxableAmountCell = document.createElement("td");
-            totalTaxableAmountCell.textContent =
-              currencyFormatter.format(totalTaxableAmount); // Format total taxable amount
-            totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total taxable amount cell
-            totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total taxable amount cell
-            totalRow.appendChild(totalItemCell);
-            totalRow.appendChild(totalValueCell);
-            totalRow.appendChild(totalAmountCell);
-            totalRow.appendChild(totalTaxableAmountCell);
-            tbody.appendChild(totalRow);
+          // Add total row
+          const totalRow = document.createElement("tr");
+          const totalItemCell = document.createElement("td");
+          totalItemCell.textContent = "Total";
+          totalItemCell.style.borderTop = "2px solid black"; // Add top border to the total item cell
+          totalItemCell.style.fontWeight = "bold"; // Bold the total item cell
+          const totalValueCell = document.createElement("td");
+          totalValueCell.textContent = ""; // Empty cell for Value column
+          totalValueCell.style.borderTop = "2px solid black"; // Add top border to the total value cell
+          const totalAmountCell = document.createElement("td");
+          totalAmountCell.textContent =
+            currencyFormatter.format(totalAuctionAmount); // Format total sale price
+          totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
+          totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
+          const totalTaxableAmountCell = document.createElement("td");
+          totalTaxableAmountCell.textContent =
+            currencyFormatter.format(totalTaxableAmount); // Format total taxable amount
+          totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total taxable amount cell
+          totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total taxable amount cell
+          totalRow.appendChild(totalItemCell);
+          totalRow.appendChild(totalValueCell);
+          totalRow.appendChild(totalAmountCell);
+          totalRow.appendChild(totalTaxableAmountCell);
+          tbody.appendChild(totalRow);
 
-            table.appendChild(thead);
-            table.appendChild(tbody);
-            auctionItemsDiv.appendChild(table);
-          } else {
-            auctionItemsDiv.textContent = "No auction items found.";
-          }
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          auctionItemsDiv.appendChild(table);
+          // } else {
+          //   auctionItemsDiv.textContent = "No auction items found.";
+          // }
         } catch (error) {
           console.error("Error fetching buyer data:", error);
         }
@@ -441,94 +441,94 @@
           // Render the transactions table
           const transactionsDiv = document.getElementById("transactions");
 
-          if (aggregatedData && aggregatedData.length > 0) {
-            const table = document.createElement("table");
-            const thead = document.createElement("thead");
-            const tbody = document.createElement("tbody");
+          // if (aggregatedData && aggregatedData.length > 0) {
+          const table = document.createElement("table");
+          const thead = document.createElement("thead");
+          const tbody = document.createElement("tbody");
 
-            // Create table headers
-            const headers = ["Room", "Amount", "Taxable Amount*"];
-            const headerRow = document.createElement("tr");
+          // Create table headers
+          const headers = ["Room", "Amount", "Taxable Amount*"];
+          const headerRow = document.createElement("tr");
+          headers.forEach((header) => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+
+          // Create table rows
+          const currencyFormatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          });
+
+          aggregatedData.forEach((row) => {
+            const tr = document.createElement("tr");
             headers.forEach((header) => {
-              const th = document.createElement("th");
-              th.textContent = header;
-              headerRow.appendChild(th);
-            });
-            thead.appendChild(headerRow);
-
-            // Create table rows
-            const currencyFormatter = new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            });
-
-            aggregatedData.forEach((row) => {
-              const tr = document.createElement("tr");
-              headers.forEach((header) => {
-                const td = document.createElement("td");
-                if (header === "Amount") {
+              const td = document.createElement("td");
+              if (header === "Amount") {
+                td.textContent = currencyFormatter.format(row["SalePrice"]);
+                totalTransactionAmountLocal += parseFloat(row["SalePrice"]);
+              } else if (header === "Room") {
+                td.textContent = row["RoomName"];
+              } else if (header === "Taxable Amount*") {
+                if (row["RoomName"] === "Lunch") {
                   td.textContent = currencyFormatter.format(row["SalePrice"]);
-                  totalTransactionAmountLocal += parseFloat(row["SalePrice"]);
-                } else if (header === "Room") {
-                  td.textContent = row["RoomName"];
-                } else if (header === "Taxable Amount*") {
-                  if (row["RoomName"] === "Lunch") {
-                    td.textContent = currencyFormatter.format(row["SalePrice"]);
-                  } else {
-                    td.textContent = "";
-                  }
+                } else {
+                  td.textContent = "";
                 }
-                tr.appendChild(td);
-              });
-              tbody.appendChild(tr);
-            });
-
-            // Update totalTransactionAmount
-            totalTransactionAmount = totalTransactionAmountLocal;
-
-            // Calculate total taxable amount
-            let totalTaxableAmount = 0;
-            await aggregatedData.forEach((row) => {
-              if (row["RoomName"] === "Lunch") {
-                totalTaxableAmount += parseFloat(row["SalePrice"]);
               }
+              tr.appendChild(td);
             });
+            tbody.appendChild(tr);
+          });
 
-            // Add total row
-            const totalRow = document.createElement("tr");
-            const totalRoomCell = document.createElement("td");
-            totalRoomCell.textContent = "Total";
-            totalRoomCell.style.borderTop = "2px solid black"; // Add top border to the total room cell
-            totalRoomCell.style.fontWeight = "bold"; // Bold the total room cell
-            const totalAmountCell = document.createElement("td");
-            totalAmountCell.id = "totalTransactionAmount"; // Add id for total transaction amount
-            totalAmountCell.textContent = currencyFormatter.format(
-              totalTransactionAmount
-            ); // Format total sale price
-            totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
-            totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
-            const totalTaxableAmountCell = document.createElement("td");
-            totalTaxableAmountCell.textContent =
-              currencyFormatter.format(totalTaxableAmount); // Format total taxable amount
-            totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total taxable amount cell
-            totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total taxable amount cell
-            totalRow.appendChild(totalRoomCell);
-            totalRow.appendChild(totalAmountCell);
-            totalRow.appendChild(totalTaxableAmountCell);
-            tbody.appendChild(totalRow);
+          // Update totalTransactionAmount
+          totalTransactionAmount = totalTransactionAmountLocal;
 
-            table.style.width = "100%"; // Set table width to 100%
-            const ths = table.querySelectorAll("th");
-            ths.forEach((th) => {
-              th.style.width = `${100 / ths.length}%`; // Set equal width for each column
-            });
+          // Calculate total taxable amount
+          let totalTaxableAmount = 0;
+          await aggregatedData.forEach((row) => {
+            if (row["RoomName"] === "Lunch") {
+              totalTaxableAmount += parseFloat(row["SalePrice"]);
+            }
+          });
 
-            table.appendChild(thead);
-            table.appendChild(tbody);
-            transactionsDiv.appendChild(table);
-          } else {
-            transactionsDiv.textContent = "No transactions found.";
-          }
+          // Add total row
+          const totalRow = document.createElement("tr");
+          const totalRoomCell = document.createElement("td");
+          totalRoomCell.textContent = "Total";
+          totalRoomCell.style.borderTop = "2px solid black"; // Add top border to the total room cell
+          totalRoomCell.style.fontWeight = "bold"; // Bold the total room cell
+          const totalAmountCell = document.createElement("td");
+          totalAmountCell.id = "totalTransactionAmount"; // Add id for total transaction amount
+          totalAmountCell.textContent = currencyFormatter.format(
+            totalTransactionAmount
+          ); // Format total sale price
+          totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
+          totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
+          const totalTaxableAmountCell = document.createElement("td");
+          totalTaxableAmountCell.textContent =
+            currencyFormatter.format(totalTaxableAmount); // Format total taxable amount
+          totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total taxable amount cell
+          totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total taxable amount cell
+          totalRow.appendChild(totalRoomCell);
+          totalRow.appendChild(totalAmountCell);
+          totalRow.appendChild(totalTaxableAmountCell);
+          tbody.appendChild(totalRow);
+
+          table.style.width = "100%"; // Set table width to 100%
+          const ths = table.querySelectorAll("th");
+          ths.forEach((th) => {
+            th.style.width = `${100 / ths.length}%`; // Set equal width for each column
+          });
+
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          transactionsDiv.appendChild(table);
+          // } else {
+          //   transactionsDiv.textContent = "No transactions found.";
+          // }
         } catch (error) {
           console.error("Error fetching buyer data:", error);
         }
