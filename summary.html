@@ -125,14 +125,9 @@
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
         const urlParams = new URLSearchParams(window.location.search);
-        console.log(urlParams.get("FirstName"));
-        console.log(urlParams.get("LastName"));
         const title =
           urlParams.get("FirstName") + " " + urlParams.get("LastName");
-        console.log(title);
-        document.title = urlParams.get(
-          "FirstName" + " " + urlParams.get("LastName")
-        );
+        document.title = title;
         let firstName = "";
         let lastName = "";
         let buyerId = "";
