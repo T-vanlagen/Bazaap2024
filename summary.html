@@ -115,47 +115,28 @@
     </div>
 
     <script>
-      let firstName = "";
-      let lastName = "";
-      let buyerId = "";
-      let roomData = {};
-      let paymentTypeData = {};
-      let paymentTypeMap = {};
-      let totalAuctionAmount = 0;
-      let totalTransactionAmount = 0;
-      let totalTransactionAmountLocal = 0;
-
-      // Add current date and time to the page
-      document.addEventListener("DOMContentLoaded", function () {
-        console.log(
-          "buyerId",
-          buyerId,
-          "firstName",
-          firstName,
-          "lastName",
-          lastName
-        );
-        console.log("urlparams", urlParams);
+      document.addEventListener("DOMContentLoaded", async () => {
+        let firstName = "";
+        let lastName = "";
+        let buyerId = "";
+        let roomData = {};
+        let paymentTypeData = {};
+        let paymentTypeMap = {};
+        let totalAuctionAmount = 0;
+        let totalTransactionAmount = 0;
+        let totalTransactionAmountLocal = 0;
+        const urlParams = new URLSearchParams(window.location.search);
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
         buyerId = urlParams.get("BuyerId");
-        console.log("buyerId", buyerId);
         firstName = urlParams.get("FirstName");
-        console.log("firstName", firstName);
         lastName = urlParams.get("LastName");
-        console.log("lastName", lastName);
         document.getElementById("firstName").textContent =
           urlParams.get("FirstName"); //await `${firstName}`;
         document.getElementById("lastName").textContent =
           urlParams.get("LastName"); //await `${lastName}`;
         currentDateTimeElement.textContent = "Printed: " + currentDateTime;
-      });
-
-      document.addEventListener("DOMContentLoaded", async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const buyerId = urlParams.get("BuyerId");
-
         // if (buyerId) {
         //   try {
         //     const response = await fetch(
