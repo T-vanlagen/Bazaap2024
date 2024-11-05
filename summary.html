@@ -500,9 +500,13 @@
                   if (row["RoomName"] === "Lunch") {
                     td.textContent = currencyFormatter.format(row["SalePrice"]);
                   } else {
+                    console.log("value", row["Value"]);
                     const value =
                       row["Value"] === "" ? row["SalePrice"] : row["Value"];
+                    console.log("value2", value);
                     const taxableAmount = row["SalePrice"] - value;
+                    console.log("taxableAmount", taxableAmount);
+                    console.log('row["SalePrice"]', row["SalePrice"]);
                     if (row["SalePrice"] >= 1.2 * value) {
                       td.textContent = currencyFormatter.format(taxableAmount);
                       totalTaxableAmount += taxableAmount;
