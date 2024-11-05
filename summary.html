@@ -499,6 +499,16 @@
                 } else if (header === "Taxable Amount*") {
                   if (row["RoomName"] === "Lunch") {
                     td.textContent = currencyFormatter.format(row["SalePrice"]);
+
+                    const value =
+                      row["Value"] === "" ? row["SalePrice"] : row["Value"];
+                    const taxableAmount = row["SalePrice"] - value;
+                    if (row["SalePrice"] >= 1.2 * value) {
+                      td.textContent = currencyFormatter.format(taxableAmount);
+                      totalTaxableAmount += taxableAmount;
+                    } else {
+                      td.textContent = "";
+                    }
                   } else {
                     td.textContent = "";
                   }
