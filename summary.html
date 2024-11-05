@@ -427,7 +427,6 @@
             }
           );
           const transactionData = await response.json();
-          console.log("transactionData", transactionData);
 
           // Create a mapping of RoomId to Name
           const roomMap = {};
@@ -440,14 +439,30 @@
             (acc, transaction) => {
               const roomName = roomMap[transaction.RoomId] || "Unknown";
               if (!acc[roomName]) {
-                acc[roomName] = { RoomName: roomName, SalePrice: 0 };
+                acc[roomName] = {
+                  RoomName: roomName,
+                  SalePrice: 0,
+                  Taxable: 0,
+                };
               }
               acc[roomName].SalePrice += parseFloat(transaction.SalePrice);
+
+              // Add value to the transactionRoomData object if value saleprice is >= 1.2 * value
+              const value =
+                transaction.Value === ""
+                  ? parseFloat(transaction.SalePrice)
+                  : parseFloat(transaction.Value);
+              const taxableAmount =
+                parseFloat(transaction.SalePrice) >= 1.2 * value
+                  ? parseFloat(transaction.SalePrice) - value
+                  : 0;
+              console.log("taxableAmount", taxableAmount);
+              acc[roomName].Taxable += taxableAmount;
+
               return acc;
             },
             {}
           );
-          console.log("transactionRoomData", transactionRoomData);
 
           // Convert the aggregated data back to an array
           const aggregatedData = Object.values(transactionRoomData);
@@ -457,7 +472,6 @@
             if (a.RoomName > b.RoomName) return 1;
             return 0;
           });
-          console.log("aggregatedData", aggregatedData);
 
           // Calculate the total SalePrice
           const totalSalePrice = aggregatedData.reduce(
@@ -490,7 +504,6 @@
           });
 
           if (aggregatedData.length > 0) {
-            console.log("aggregatedData", aggregatedData);
             aggregatedData.forEach((row) => {
               const tr = document.createElement("tr");
               headers.forEach((header) => {
@@ -503,20 +516,10 @@
                 } else if (header === "Taxable Amount*") {
                   if (row["RoomName"] === "Lunch") {
                     td.textContent = currencyFormatter.format(row["SalePrice"]);
+                  } else if (row["Taxable"] != 0) {
+                    td.textContent = currencyFormatter.format(row["Taxable"]);
                   } else {
-                    console.log("value", row["Value"]);
-                    const value =
-                      row["Value"] === "" ? row["SalePrice"] : row["Value"];
-                    console.log("value2", value);
-                    const taxableAmount = row["SalePrice"] - value;
-                    console.log("taxableAmount", taxableAmount);
-                    console.log('row["SalePrice"]', row["SalePrice"]);
-                    if (row["SalePrice"] >= 1.2 * value) {
-                      td.textContent = currencyFormatter.format(taxableAmount);
-                      totalTaxableAmount += taxableAmount;
-                    } else {
-                      td.textContent = "";
-                    }
+                    td.textContent = "";
                   }
                 }
                 tr.appendChild(td);
