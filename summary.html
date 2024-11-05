@@ -499,7 +499,7 @@
                 } else if (header === "Taxable Amount*") {
                   if (row["RoomName"] === "Lunch") {
                     td.textContent = currencyFormatter.format(row["SalePrice"]);
-
+                  } else {
                     const value =
                       row["Value"] === "" ? row["SalePrice"] : row["Value"];
                     const taxableAmount = row["SalePrice"] - value;
@@ -509,8 +509,6 @@
                     } else {
                       td.textContent = "";
                     }
-                  } else {
-                    td.textContent = "";
                   }
                 }
                 tr.appendChild(td);
