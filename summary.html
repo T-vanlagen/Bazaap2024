@@ -456,7 +456,6 @@
                 parseFloat(transaction.SalePrice) >= 1.2 * value
                   ? parseFloat(transaction.SalePrice) - value
                   : 0;
-              console.log("taxableAmount", taxableAmount);
               acc[roomName].Taxable += taxableAmount;
 
               return acc;
