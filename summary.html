@@ -650,7 +650,7 @@
                     paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
                 } else if (header === "Amount") {
                   td.textContent = currencyFormatter.format(row["Amount"]);
-                  totalPaymentAmount += parseFloat(row["Amount"]);
+                  totalPaymentAmount += parseFloat(row["Amount"] - parseFloat(row["Service Fee"]);
                 }
                 tr.appendChild(td);
               });
