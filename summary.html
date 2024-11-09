@@ -538,8 +538,10 @@
           // Calculate total Tax Deductable Amount
           let totalTaxableAmount = 0;
           await aggregatedData.forEach((row) => {
-            if (row["RoomName"] === "Lunch") {
+            if (row["RoomName"] === "Donations") {
               totalTaxableAmount += parseFloat(row["SalePrice"]);
+            } else if (row["Taxable"] != 0) {
+              totalTaxableAmount += parseFloat(row["Taxable"]);
             }
           });
 
