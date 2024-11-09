@@ -125,10 +125,8 @@
       </div>
       <div style="font-style: italic; font-size: small">
         This is not an official tax reciept.<br />
-        *Taxable Amount: The difference between the Sale Price and the Value,
-        only if the Sale Price is 120% or more of the Value.<br />
-        **Remaining Balance: If this number is in the negatives, the amount
-        amount overpaid is fully taxable.
+        *Tax Deductable Amount: The difference between the Sale Price and the Value,
+        only if the Sale Price is 125% or more of the Value.<br />
       </div>
       <div
         style="text-align: right; font-style: italic; font-size: small"
@@ -309,7 +307,7 @@
           const tbody = document.createElement("tbody");
 
           // Create table headers
-          const headers = ["Item", "Value", "Amount", "Taxable Amount*"];
+          const headers = ["Item", "Value", "Amount", "Tax Deductable Amount*"];
           const headerRow = document.createElement("tr");
           headers.forEach((header) => {
             const th = document.createElement("th");
@@ -340,9 +338,9 @@
                 } else if (header === "Amount") {
                   td.textContent = currencyFormatter.format(row["SalePrice"]);
                   totalAuctionAmountLocal += parseFloat(row["SalePrice"]);
-                } else if (header === "Taxable Amount*") {
+                } else if (header === "Tax Deductable Amount*") {
                   const taxableAmount = row["SalePrice"] - row["Value"];
-                  if (row["SalePrice"] >= 1.2 * row["Value"]) {
+                  if (row["SalePrice"] >= 1.25 * row["Value"]) {
                     td.textContent = currencyFormatter.format(taxableAmount);
                     totalTaxableAmount += taxableAmount;
                   } else {
@@ -381,9 +379,9 @@
           totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
           const totalTaxableAmountCell = document.createElement("td");
           totalTaxableAmountCell.textContent =
-            currencyFormatter.format(totalTaxableAmount); // Format total taxable amount
-          totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total taxable amount cell
-          totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total taxable amount cell
+            currencyFormatter.format(totalTaxableAmount); // Format total Tax Deductable Amount
+          totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total Tax Deductable Amount cell
+          totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total Tax Deductable Amount cell
           totalRow.appendChild(totalItemCell);
           totalRow.appendChild(totalValueCell);
           totalRow.appendChild(totalAmountCell);
@@ -447,13 +445,13 @@
               }
               acc[roomName].SalePrice += parseFloat(transaction.SalePrice);
 
-              // Add value to the transactionRoomData object if value saleprice is >= 1.2 * value
+              // Add value to the transactionRoomData object if value saleprice is >= 1.25 * value
               const value =
                 transaction.Value === ""
                   ? parseFloat(transaction.SalePrice)
                   : parseFloat(transaction.Value);
               const taxableAmount =
-                parseFloat(transaction.SalePrice) >= 1.2 * value
+                parseFloat(transaction.SalePrice) >= 1.25 * value
                   ? parseFloat(transaction.SalePrice) - value
                   : 0;
               acc[roomName].Taxable += taxableAmount;
@@ -487,7 +485,7 @@
           const tbody = document.createElement("tbody");
 
           // Create table headers
-          const headers = ["Room", "Amount", "Taxable Amount*"];
+          const headers = ["Room", "Amount", "Tax Deductable Amount*"];
           const headerRow = document.createElement("tr");
           headers.forEach((header) => {
             const th = document.createElement("th");
@@ -512,8 +510,8 @@
                   totalTransactionAmountLocal += parseFloat(row["SalePrice"]);
                 } else if (header === "Room") {
                   td.textContent = row["RoomName"];
-                } else if (header === "Taxable Amount*") {
-                  if (row["RoomName"] === "Lunch") {
+                } else if (header === "Tax Deductable Amount*") {
+                  if (row["RoomName"] === "Donations") {
                     td.textContent = currencyFormatter.format(row["SalePrice"]);
                   } else if (row["Taxable"] != 0) {
                     td.textContent = currencyFormatter.format(row["Taxable"]);
@@ -537,7 +535,7 @@
           // Update totalTransactionAmount
           totalTransactionAmount = totalTransactionAmountLocal;
 
-          // Calculate total taxable amount
+          // Calculate total Tax Deductable Amount
           let totalTaxableAmount = 0;
           await aggregatedData.forEach((row) => {
             if (row["RoomName"] === "Lunch") {
@@ -560,9 +558,9 @@
           totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
           const totalTaxableAmountCell = document.createElement("td");
           totalTaxableAmountCell.textContent =
-            currencyFormatter.format(totalTaxableAmount); // Format total taxable amount
-          totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total taxable amount cell
-          totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total taxable amount cell
+            currencyFormatter.format(totalTaxableAmount); // Format total Tax Deductable Amount
+          totalTaxableAmountCell.style.borderTop = "2px solid black"; // Add top border to the total Tax Deductable Amount cell
+          totalTaxableAmountCell.style.fontWeight = "bold"; // Bold the total Tax Deductable Amount cell
           totalRow.appendChild(totalRoomCell);
           totalRow.appendChild(totalAmountCell);
           totalRow.appendChild(totalTaxableAmountCell);
