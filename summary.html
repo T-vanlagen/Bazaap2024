@@ -490,6 +490,10 @@
           headers.forEach((header) => {
             const th = document.createElement("th");
             th.textContent = header;
+          // Set column widths
+          if (header === "Room") {
+            th.style.width = "360px";
+          }
             headerRow.appendChild(th);
           });
           thead.appendChild(headerRow);
