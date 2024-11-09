@@ -651,6 +651,8 @@
                 } else if (header === "Amount") {
                   console.log('row',row)
                   td.textContent = currencyFormatter.format(row["Amount"]);
+                  console.log('amount', row["Amount"])
+                  console.log('serviceFee', row["Service Fee"])
                   console.log('amount', parseFloat(row["Amount"]))
                   console.log('serviceFee', parseFloat(row["Service Fee"]))
                   totalPaymentAmount += parseFloat(row["Amount"]) - parseFloat(row["Service Fee"]);
