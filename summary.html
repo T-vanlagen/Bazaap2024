@@ -491,8 +491,10 @@
             const th = document.createElement("th");
             th.textContent = header;
           // Set column widths
-          if (header === "Room") {
-            th.style.width = "360px";
+          if (header != "Room") {
+            th.style.width = "150px";
+          } else {
+            th.style.width = "175px";
           }
             headerRow.appendChild(th);
           });
@@ -631,8 +633,12 @@
           const headerRow = document.createElement("tr");
           headers.forEach((header) => {
             const th = document.createElement("th");
-            th.textContent = header;
-            th.style.width = `${100 / headers.length}%`; // Set equal width for each column
+            // Set column widths
+            if (header != "Item") {
+              th.style.width = "150px";
+            } else {
+              th.style.width = "175px";
+            }
             headerRow.appendChild(th);
           });
           thead.appendChild(headerRow);
