@@ -160,6 +160,7 @@
         let paymentTypeMap = {};
         let totalAuctionAmount = 0;
         let totalTransactionAmount = 0;
+        let totalReceiptableAmount = 0;
         let totalTransactionAmountLocal = 0;
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
@@ -368,6 +369,7 @@
               });
               tbody.appendChild(tr);
             });
+            totalReceiptableAmount = totalTaxableAmount;
           } else {
             const tr = document.createElement("tr");
             const td = document.createElement("td");
@@ -567,6 +569,7 @@
               totalTaxableAmount += parseFloat(row["Taxable"]);
             }
           });
+          totalReceiptableAmount += totalTaxableAmount;
 
           // Add total row
           const totalRow = document.createElement("tr");
@@ -646,7 +649,7 @@
           const tbody = document.createElement("tbody");
 
           // Create table headers
-          const headers = ["Type", "Amount"];
+          const headers = ["Type", "Amount", "Tax Receiptable*"];
           const headerRow = document.createElement("tr");
           headers.forEach((header) => {
             const th = document.createElement("th");
@@ -706,8 +709,15 @@
             currencyFormatter.format(totalPaymentAmount); // Format total payment amount
           totalAmountCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
           totalAmountCell.style.fontWeight = "bold"; // Bold the total amount cell
+          const totalReceiptableCell = document.createElement("td");
+          totalReceiptableCell.textContent = currencyFormatter.format(
+            totalReceiptableAmount
+          ); // Format total payment amount
+          totalReceiptableCell.style.borderTop = "2px solid black"; // Add top border to the total amount cell
+          totalReceiptableCell.style.fontWeight = "bold"; // Bold the total amount cell
           totalRow.appendChild(totalTypeCell);
           totalRow.appendChild(totalAmountCell);
+          totalRow.appendChild(totalReceiptableCell);
           tbody.appendChild(totalRow);
 
           // Calculate remaining balance
