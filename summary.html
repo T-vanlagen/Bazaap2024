@@ -735,8 +735,13 @@
             currencyFormatter.format(remainingBalance); // Format remaining balance amount
           remainingBalanceAmountCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance amount cell
           remainingBalanceAmountCell.style.fontWeight = "bold"; // Bold the remaining balance amount cell
+          const remainingReceiptableAmountCell = document.createElement("td");
+          remainingReceiptableAmountCell.textContent = ""; // Format remaining balance amount
+          remainingReceiptableAmountCell.style.borderTop = "2px solid black"; // Add top border to the remaining balance amount cell
+          remainingReceiptableAmountCell.style.fontWeight = "bold"; // Bold the remaining balance amount cell
           remainingBalanceRow.appendChild(remainingBalanceTypeCell);
           remainingBalanceRow.appendChild(remainingBalanceAmountCell);
+          remainingBalanceRow.appendChild(remainingReceiptableAmountCell);
           tbody.appendChild(remainingBalanceRow);
 
           table.appendChild(thead);
