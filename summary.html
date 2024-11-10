@@ -678,7 +678,7 @@
               headers.forEach((header) => {
                 const td = document.createElement("td");
                 if (header === "Type") {
-                  const typeValue = paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
+                  let typeValue = paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
                   if( typeValue === "Credit" ) {
                     typeValue = "Credit**"
                   }
