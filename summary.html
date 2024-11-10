@@ -494,7 +494,7 @@
           if (header != "Room") {
             th.style.width = "150px";
           } else {
-            th.style.width = "175px";
+            th.style.width = "450px";
           }
             headerRow.appendChild(th);
           });
@@ -577,8 +577,13 @@
           table.style.width = "100%"; // Set table width to 100%
           const ths = table.querySelectorAll("th");
           ths.forEach((th) => {
-            th.style.width = `${100 / ths.length}%`; // Set equal width for each column
-          });
+            
+            // Set column widths
+            if (header != "Item") {
+              th.style.width = "150px";
+            } else {
+              th.style.width = "175px";
+            }
 
           table.appendChild(thead);
           table.appendChild(tbody);
