@@ -53,6 +53,18 @@
         text-align: right;
         margin: 10px;
       }
+      .room-header {
+        width: 150px;
+      }
+      .item-header {
+        width: 150px;
+      }
+      .type-header {
+        width: 150px;
+      }
+      .common-header {
+        width: 150px;
+      }
       @media print {
         @page {
           size: 8.5in 11in; /* Specify the sheet size */
@@ -312,7 +324,12 @@
           headers.forEach((header) => {
             const th = document.createElement("th");
             th.textContent = header;
-            th.style.width = `${100 / headers.length}%`; // Set equal width for each column
+            // Add class to headers
+            if (header === "Item") {
+              th.className = "item-header";
+            } else {
+              th.className = "common-header";
+            }
             headerRow.appendChild(th);
           });
           thead.appendChild(headerRow);
@@ -490,6 +507,12 @@
           headers.forEach((header) => {
             const th = document.createElement("th");
             th.textContent = header;
+            // Add class to headers
+            if (header === "Room") {
+              th.className = "room-header";
+            } else {
+              th.className = "common-header";
+            }
             headerRow.appendChild(th);
           });
           thead.appendChild(headerRow);
@@ -628,7 +651,12 @@
           headers.forEach((header) => {
             const th = document.createElement("th");
             th.textContent = header;
-            th.style.width = `${100 / headers.length}%`; // Set equal width for each column
+            // Add class to headers
+            if (header === "Type") {
+              th.className = "type-header";
+            } else {
+              th.className = "common-header";
+            }
             headerRow.appendChild(th);
           });
           thead.appendChild(headerRow);
@@ -650,7 +678,9 @@
                     paymentTypeMap[row["PaymentTypeId"]] || "Unknown";
                 } else if (header === "Amount") {
                   td.textContent = currencyFormatter.format(row["Amount"]);
-                  totalPaymentAmount += parseFloat(row["Amount"]) - ( parseFloat(row["Service Fee"]) || 0 );
+                  totalPaymentAmount +=
+                    parseFloat(row["Amount"]) -
+                    (parseFloat(row["Service Fee"]) || 0);
                 }
                 tr.appendChild(td);
               });
