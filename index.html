@@ -94,11 +94,6 @@
     </div>
 
     <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const title =
-        urlParams.get("FirstName") + " " + urlParams.get("LastName");
-      console.log('title', title)
-      document.title = title;
       function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
         return {
@@ -110,8 +105,12 @@
 
       function displayValues() {
         const { buyer, firstName, lastName } = getQueryParams();
+        
+      const title = firstName.toString() + " " + lastName;
+      console.log('title', title)
+      document.title = title;
         document.getElementById("buyer").textContent = `${buyer}`;
-        const firstNameAmp = firstName.replace(/&/g, "&amp;")
+        const firstNameAmp = firstName.toString()
         console.log('firstNameAmp', firstNameAmp)
         document.getElementById(
           "fullName"
