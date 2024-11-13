@@ -112,7 +112,7 @@
         document.getElementById("buyer").textContent = `${buyer}`;
         document.getElementById(
           "fullName"
-        ).textContent = `${firstName} ${lastName}`; // Display the full name
+        ).textContent = `${firstName.replace(/&/g, "&amp;")} ${lastName}`; // Display the full name
 
         if (document.getElementById("buyer").textContent === "null") {
           document.getElementById("buyer").textContent = "12";
