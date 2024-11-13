@@ -402,6 +402,7 @@
             }
           );
           const transactionData = await response.json();
+          console.log('transactionData', transactionData)
 
           // Create a mapping of RoomId to Name
           const roomMap = {};
@@ -593,6 +594,7 @@
             }
           );
           const paymentData = await paymentResponse.json();
+          console.log('paymentData', paymentData )
 
           // Render the payments table
           const paymentsDiv = document.getElementById("payments");
