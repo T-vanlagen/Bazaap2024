@@ -96,7 +96,6 @@
     <script>
       function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
-        console.log('firstNameparam', params.get("firstName") )
         return {
           buyer: params.get("buyer"),
           firstName: params.get("firstName"),
@@ -108,11 +107,9 @@
         const { buyer, firstName, lastName } = getQueryParams();
         
       const title = firstName.toString() + " " + lastName;
-      console.log('title', title)
       document.title = title;
         document.getElementById("buyer").textContent = `${buyer}`;
         const firstNameAmp = firstName.toString()
-        console.log('firstNameAmp', firstNameAmp)
         document.getElementById(
           "fullName"
         ).textContent = `${firstNameAmp} ${lastName}`; // Display the full name
