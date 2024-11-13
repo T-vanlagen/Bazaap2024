@@ -94,6 +94,10 @@
     </div>
 
     <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const title =
+        urlParams.get("FirstName") + " " + urlParams.get("LastName");
+      document.title = title;
       function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
         return {
