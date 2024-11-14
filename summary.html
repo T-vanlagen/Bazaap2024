@@ -156,18 +156,34 @@
         const element = document.querySelector(".container");
         // Temporarily remove the border
         element.style.border = "none";
+        // Center the container
+        element.style.margin = "0 auto";
+
         html2pdf()
           .from(element)
           .set({
-            margin: 0,
+            margin: 0, // Set margin to 0
             filename: "bazaar_receipt_2024.pdf",
-            html2canvas: { scale: 2 },
-            jsPDF: { orientation: "portrait" },
+            html2canvas: {
+              scale: 2,
+              useCORS: true,
+              logging: true,
+              scrollX: 0,
+              scrollY: 0,
+              windowWidth: document.documentElement.offsetWidth,
+              windowHeight: document.documentElement.offsetHeight,
+            },
+            jsPDF: {
+              unit: "in",
+              format: "letter", // Set format to letter (8.5x11 inches)
+              orientation: "portrait",
+            },
           })
           .save()
           .then(() => {
-            // Restore the border after saving the PDF
+            // Restore the border and margin after saving the PDF
             element.style.border = "1px solid black";
+            element.style.margin = "";
           });
       }
       document.addEventListener("DOMContentLoaded", async () => {
