@@ -77,7 +77,8 @@
         .container * {
           visibility: visible;
         }
-        .print-button {
+        .print-button,
+        .pdf-button {
           display: none;
         }
         .container {
@@ -156,7 +157,7 @@
         html2pdf()
           .from(element)
           .set({
-            margin: 1,
+            margin: 0,
             filename: "bazaar_receipt_2024.pdf",
             html2canvas: { scale: 2 },
             jsPDF: { orientation: "portrait" },
