@@ -53,6 +53,14 @@
         text-align: right;
         margin: 10px;
       }
+      .pdf-button {
+        text-align: right;
+        margin: 10px;
+      }
+      .email-button {
+        text-align: right;
+        margin: 10px;
+      }
       .room-header {
         width: 450px;
       }
@@ -78,7 +86,8 @@
           visibility: visible;
         }
         .print-button,
-        .pdf-button {
+        .pdf-button,
+        .email-button {
           display: none;
         }
         .container {
@@ -102,6 +111,9 @@
     </div>
     <div class="print-button">
       <button onclick="window.print()">Print</button>
+    </div>
+    <div class="email-button">
+      <button onclick="sendEmail()">Email PDF</button>
     </div>
     <div class="container">
       <div
@@ -179,13 +191,32 @@
               orientation: "portrait",
             },
           })
-          .save()
+          .outputPdf("datauristring")
+          // .save()
           .then(() => {
             // Restore the border and margin after saving the PDF
             element.style.border = "1px solid black";
             element.style.margin = "";
+
+            // Call the callback function with the generated PDF data URI
+            callback(pdfDataUri);
           });
       }
+
+      function sendEmail() {
+        exportToPDF((pdfDataUri) => {
+          const email = "recipient@example.com"; // Replace with the recipient's email address
+          const subject = "Bazaar Receipt 2024";
+          const body = `Please find the attached PDF receipt.\n\nDownload the PDF from the following link:\n${pdfDataUri}`;
+          const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+            subject
+          )}&body=${encodeURIComponent(body)}`;
+
+          // Open the default email app with the pre-filled email
+          window.location.href = mailtoLink;
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", async () => {
         const urlParams = new URLSearchParams(window.location.search);
         const title =
