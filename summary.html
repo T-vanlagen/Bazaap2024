@@ -12,17 +12,6 @@
       td {
         font-size: 16px;
       }
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        height: 100vh;
-        box-sizing: border-box;
-      }
       .container {
         width: 8.5in; /* Set the width to 8.5 inches */
         height: 11in; /* Set the height to 11 inches */
@@ -38,10 +27,14 @@
         margin-bottom: 5px;
       }
       .body {
-        flex-grow: 1;
+        width: 100%; /* Ensure the body takes the full width of the container */
+        max-width: 8.5in; /* Ensure the body does not exceed the container width */
         text-align: left;
         margin-bottom: 5px;
         border: 1px solid black;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
       }
       .lineHeader {
         font-weight: bold;
@@ -154,6 +147,8 @@
     <script>
       function exportToPDF() {
         const element = document.querySelector(".container");
+        // Temporarily remove the border
+        element.style.border = "none";
         html2pdf()
           .from(element)
           .set({
@@ -162,7 +157,11 @@
             html2canvas: { scale: 2 },
             jsPDF: { orientation: "portrait" },
           })
-          .save();
+          .save()
+          .then(() => {
+            // Restore the border after saving the PDF
+            element.style.border = "1px solid black";
+          });
       }
       document.addEventListener("DOMContentLoaded", async () => {
         const urlParams = new URLSearchParams(window.location.search);
