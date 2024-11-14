@@ -193,7 +193,7 @@
           })
           .outputPdf("datauristring")
           // .save()
-          .then(() => {
+          .then((pdfDataUri) => {
             // Restore the border and margin after saving the PDF
             element.style.border = "1px solid black";
             element.style.margin = "";
