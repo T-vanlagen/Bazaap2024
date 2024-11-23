@@ -169,7 +169,6 @@
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
-        console.log('buyerid param', urlParams.get("BuyerId").replace("%25","%"));
         buyerId = urlParams.get("BuyerId").replace("%25","%");
         firstName = urlParams.get("FirstName");
         lastName = urlParams.get("LastName");
@@ -179,9 +178,6 @@
           urlParams.get("LastName"); //await `${lastName}`;
         currentDateTimeElement.textContent = "Printed: " + currentDateTime;
         const encodedBuyerId = buyerId.replace('-','%2D');
-        console.log('buyerId',buyerId)
-        console.log('replace buyerId', encodedBuyerId )
-        console.log('encoded',encodeURIComponent(buyerId))
 
         // add api call to get Auction Items for this buyer
         try {
@@ -345,7 +341,6 @@
             }
           );
           const transactionData = await response.json();
-          console.log("transactionData", transactionData);
 
           // Transform transactionData to include RoomName and aggregate SalePrice
           const transactionRoomData = transactionData.reduce(
@@ -531,7 +526,6 @@
             }
           );
           const paymentData = await paymentResponse.json();
-          console.log("paymentData", paymentData);
 
           // Render the payments table
           const paymentsDiv = document.getElementById("payments");
