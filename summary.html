@@ -159,6 +159,7 @@
         let firstName = "";
         let lastName = "";
         let buyerId = "";
+        let buyer = "";
         let roomData = {};
         let paymentTypeData = {};
         let paymentTypeMap = {};
@@ -171,6 +172,7 @@
         const currentDateTime = new Date().toLocaleString();
         const buyerIdParam = urlParams.get("BuyerId")
         buyerId = buyerIdParam.replace("%2D","-");
+        const buyer = urlParams.get("Buyer");
         
         firstName = urlParams.get("FirstName");
         lastName = urlParams.get("LastName");
@@ -196,7 +198,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(AuctionItem, [BuyerId]=${buyerId})`,
+                  Selector: `Filter(AuctionItem, [Buyer#]=${buyer})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -330,7 +332,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Transaction, [BuyerId]=${buyerId})`,
+                  Selector: `Filter(Transaction, [Buyer#]=${buyer})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -516,7 +518,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Payment, [BuyerId]=${buyerId})`,
+                  Selector: `Filter(Payment, [Buyer#]=${buyer})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
