@@ -178,6 +178,7 @@
         document.getElementById("lastName").textContent =
           urlParams.get("LastName"); //await `${lastName}`;
         currentDateTimeElement.textContent = "Printed: " + currentDateTime;
+        const encodedBuyerId = buyerId.replace('-','%2D');
         console.log('buyerId',buyerId)
         console.log('replace buyerId', buyerId.replace('-','%2D'))
         console.log('encoded',encodeURIComponent(buyerId))
@@ -198,7 +199,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(AuctionItem, [BuyerId]=${encodeURIComponent(buyerId)})`,
+                  Selector: `Filter(AuctionItem, [BuyerId]=${encodeURIComponent(encodedBuyerId)})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -332,7 +333,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Transaction, [BuyerId]=${encodeURIComponent(buyerId)}})`,
+                  Selector: `Filter(Transaction, [BuyerId]=${encodeURIComponent(encodedBuyerId)}})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -518,7 +519,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Payment, [BuyerId]=${encodeURIComponent(buyerId)}})`,
+                  Selector: `Filter(Payment, [BuyerId]=${encodeURIComponent(encodedBuyerId)}})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
