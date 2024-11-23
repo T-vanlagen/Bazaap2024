@@ -178,6 +178,8 @@
         document.getElementById("lastName").textContent =
           urlParams.get("LastName"); //await `${lastName}`;
         currentDateTimeElement.textContent = "Printed: " + currentDateTime;
+        const encoded = encodeURI(buyerId);
+        console.log('encoding - old, new', buyerId, encoded);
 
         // add api call to get Auction Items for this buyer
         try {
@@ -195,7 +197,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(AuctionItem, [BuyerId]=${buyerId})`,
+                  Selector: `Filter(AuctionItem, [BuyerId]=${encoded})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -329,7 +331,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Transaction, [BuyerId]=${buyerId})`,
+                  Selector: `Filter(Transaction, [BuyerId]=${encoded})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -515,7 +517,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Payment, [BuyerId]=${buyerId})`,
+                  Selector: `Filter(Payment, [BuyerId]=${encoded})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
