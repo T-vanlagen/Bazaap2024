@@ -199,7 +199,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(AuctionItem, [BuyerId]=${encodeURIComponent(encodedBuyerId)})`,
+                  Selector: `Filter(AuctionItem, [BuyerId]=${encodeURIComponent(encodedBuyerId.replace('%25','%'))})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -333,7 +333,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Transaction, [BuyerId]=${encodeURIComponent(encodedBuyerId)}})`,
+                  Selector: `Filter(Transaction, [BuyerId]=${encodeURIComponent(encodedBuyerId.replace('%25','%'))}})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
@@ -519,7 +519,7 @@
                 Properties: {
                   Locale: "en-US",
                   Location: "47.623098, -122.330184",
-                  Selector: `Filter(Payment, [BuyerId]=${encodeURIComponent(encodedBuyerId)}})`,
+                  Selector: `Filter(Payment, [BuyerId]=${encodeURIComponent(encodedBuyerId.replace('%25','%'))}})`,
                   Timezone: "Pacific Standard Time",
                   UserSettings: {
                     "Option 1": "value1",
