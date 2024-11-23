@@ -169,7 +169,7 @@
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
-        buyerId = urlParams.get("BuyerId");
+        buyerId = urlParams.get("BuyerId").replace("%25","%");
         firstName = urlParams.get("FirstName");
         lastName = urlParams.get("LastName");
         document.getElementById("firstName").textContent =
