@@ -169,6 +169,7 @@
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
+        console.log('buyerid param', urlParams.get("BuyerId").replace("%25","%"));
         buyerId = urlParams.get("BuyerId").replace("%25","%");
         firstName = urlParams.get("FirstName");
         lastName = urlParams.get("LastName");
