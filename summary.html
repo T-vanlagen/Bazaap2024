@@ -170,8 +170,6 @@
         const currentDateTimeElement =
           document.getElementById("currentDateTime");
         const currentDateTime = new Date().toLocaleString();
-        const buyerIdParam = urlParams.get("BuyerId")
-        buyerId = buyerIdParam.replace("%2D","-");
         buyer = urlParams.get("Buyer");
         
         firstName = urlParams.get("FirstName");
