@@ -350,7 +350,7 @@
           // Transform transactionData to include RoomName and aggregate SalePrice
           const transactionRoomData = transactionData.reduce(
             (acc, transaction) => {
-              const roomName = transaction.RoomName + transaction.Preorder ? ' (Preorder)' : '' || "Unknown";
+              const roomName = transaction.Preorder === 'Y' ? transaction.RoomName + ' (Preorder)' : transaction.RoomName || "Unknown";
               if (!acc[roomName]) {
                 acc[roomName] = {
                   RoomName: roomName,
